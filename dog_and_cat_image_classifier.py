@@ -93,3 +93,23 @@ train_data_gen = train_image_generator.flow_from_directory(batch_size=batch_size
 augmented_images = [train_data_gen[0][0][0] for i in range(5)]
 
 plotImages(augmented_images)
+
+# Building the CNN Architecture
+model = Sequential()
+# block 1
+model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)))
+model.add(MaxPooling2D((2, 2),strides=2))
+# block 2
+model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(MaxPooling2D((2, 2),strides=2))
+# block 3
+model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+model.add(MaxPooling2D((2, 2),strides=2))
+model.add(Flatten())
+model.add(Dense(256,activation="relu"))
+model.add(Dense(1,activation="sigmoid"))
+
+model.compile(optimizer="adam", loss="binary_crossentropy",metrics=["accuracy"])
+
+model.summary()
+
