@@ -150,4 +150,32 @@ plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
 
+# Checking if the accuracy is greater than 63%
+answers =  [1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0,
+            1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0,
+            1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1,
+            1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 
+            0, 0, 0, 0, 0, 0]
+
+correct = 0
+
+for probability, answer in zip(probabilities, answers):
+  if round(probability[0]) == answer:
+    correct +=1
+
+percentage_identified = (correct / len(answers))
+
+passed_challenge = percentage_identified > 0.63
+
+print(f"Your model correctly identified {round(percentage_identified, 2)}% of the images of cats and dogs.")
+
+if passed_challenge:
+  print("You passed the challenge!")
+else:
+  print("You haven't passed yet. Your model should identify at least 63% of the images. Keep trying. You will get it!")
+
+
+
+
+
 
