@@ -20,6 +20,19 @@ train_dir = os.path.join(PATH, 'train')
 validation_dir = os.path.join(PATH, 'validation')
 test_dir = os.path.join(PATH, 'test')
 
+# defining important variables
+
+# Get number of files in each directory. The train and validation directories
+# each have the subdirecories "dogs" and "cats".
+total_train = sum([len(files) for r, d, files in os.walk(train_dir)])
+total_val = sum([len(files) for r, d, files in os.walk(validation_dir)])
+total_test = len(os.listdir(test_dir))
+
+# Variables for pre-processing and training.
+batch_size = 128
+epochs = 15
+IMG_HEIGHT = 150
+IMG_WIDTH = 150
 
 
 
