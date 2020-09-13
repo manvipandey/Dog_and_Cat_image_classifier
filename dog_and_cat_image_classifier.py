@@ -75,3 +75,21 @@ def plotImages(images_arr, probabilities = False):
 
 sample_training_images, _ = next(train_data_gen)
 plotImages(sample_training_images[:5])
+
+# Data augmentation: Rotating, flipping, zooming etc the images to increase the training image set
+train_image_generator = ImageDataGenerator(rescale=1.0/255.0,
+                                           horizontal_flip=True,
+                                           vertical_flip=True,
+                                           rotation_range=50,
+                                           width_shift_range=0.1,
+                                           height_shift_range=0.1,
+                                           )
+
+train_data_gen = train_image_generator.flow_from_directory(batch_size=batch_size,
+                                                     directory=train_dir,
+                                                     target_size=(IMG_HEIGHT, IMG_WIDTH),
+                                                     class_mode='binary')
+
+augmented_images = [train_data_gen[0][0][0] for i in range(5)]
+
+plotImages(augmented_images)
