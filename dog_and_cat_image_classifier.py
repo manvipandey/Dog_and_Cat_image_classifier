@@ -113,3 +113,23 @@ model.compile(optimizer="adam", loss="binary_crossentropy",metrics=["accuracy"])
 
 model.summary()
 
+# Fitting the model/ training the model
+steps_per_epoch = train_data_gen.n//train_data_gen.batch_size
+validation_steps = val_data_gen.n//val_data_gen.batch_size
+
+history = model.fit(train_data_gen,
+                    steps_per_epoch=steps_per_epoch,
+                    epochs=epochs,
+                    validation_data=val_data_gen,
+                    validation_steps=validation_steps,
+                    verbose=1
+                    )
+
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+probabilities = model.predict_generator(test_data_gen)
+
