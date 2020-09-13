@@ -34,5 +34,26 @@ epochs = 15
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 
+# Converting image into numeric data
+train_image_generator = ImageDataGenerator(rescale=1.0/255.0)
+validation_image_generator = ImageDataGenerator(rescale=1.0/255.0)
+test_image_generator = ImageDataGenerator(rescale=1.0/255.0)
+
+train_data_gen = train_image_generator.flow_from_directory(train_dir,
+                                                           batch_size=batch_size,
+                                                           class_mode="binary",
+                                                           target_size=((IMG_HEIGHT,IMG_WIDTH)),
+                                                           shuffle=True)
+val_data_gen = validation_image_generator.flow_from_directory(validation_dir,
+                                                           batch_size=batch_size,
+                                                           class_mode="binary",
+                                                           target_size=((IMG_HEIGHT,IMG_WIDTH)),
+                                                           shuffle=False)
+test_data_gen = test_image_generator.flow_from_directory(PATH,
+                                                         batch_size=1,
+                                                         class_mode=None,
+                                                         classes=["test"],
+                                                         target_size=((IMG_HEIGHT,IMG_WIDTH)),
+                                                         shuffle=False)
 
 
